@@ -1,0 +1,9 @@
+FROM node:latest as build-app
+WORKDIR /app
+RUN apt-get update && apt-get install git
+ADD https://api.github.com/repos/FoilHatGuy/vue-vue_backend/git/refs/heads/dev dev.json
+RUN git clone -b dev https://github.com/FoilHatGuy/vue-vue_backend.git
+RUN mv -v ./vue-vue_backend/backend/* ./
+RUN rm -r vue-vue_backend
+RUN npm install
+EXPOSE 3000

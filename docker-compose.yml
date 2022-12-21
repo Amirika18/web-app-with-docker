@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    volumes:
+        - ./:/etc/nginx/html
+        - ./.nginx/nginx.conf:/etc/nginx/nginx.conf
+    links:
+      - db
+      - vue
+      - app
+    depends_on:
+      - db
+      - vue
+      - app
+
+  vue:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "5173:5173"
+    working_dir: /vue
+
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile_back
+    ports:
+      - "3000:3000"
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./.env:/app/.env
+    command: bash -c "npm start"
+    links:
+      - db
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=${PGUSER}
+      - POSTGRES_PASSWORD=${PGPASSWORD}
+      - POSTGRES_DB=vue-db
+    env_file:
+      - .env
+    ports:
+      - "5432:5432"
+    working_dir: /db
+    restart: always
+    volumes:
+      - ./postgres/data:/var/lib/postgresql/data
+      - ./postgres/backups:/var/lib/postgresql/backups
+      - ./postgres/backups/dump.sql:/docker-entrypoint-initdb.d/dump.sql
+    healthcheck:
+      test: bash -c "su - postgres && pg_restore -U postgres -d vue-db /var/lib/postgresql/backups/dump.tar && cp /var/lib/postgresql/backups/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf"
+      interval: 15s
+      retries: 1
+      timeout: 10s
