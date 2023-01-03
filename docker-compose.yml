@@ -57,6 +57,6 @@ services:
       - ./postgres/data:/var/lib/postgresql/data
       - ./postgres/backups:/var/lib/postgresql/backups
 #      - ./postgres/backups/dump.sql:/dump.sql
-    command: bash -c "bash /var/lib/postgresql/backups/restore.sh"
+#    command: bash -c "bash /var/lib/postgresql/backups/restore.sh"
 #    healthcheck:
 #      test: bash -c "su - postgres && pg_restore -U postgres -d vue-db /var/lib/postgresql/backups/dump.tar && cp /var/lib/postgresql/backups/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf"
