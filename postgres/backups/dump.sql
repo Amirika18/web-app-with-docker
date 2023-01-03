@@ -18,7 +18,7 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
-DROP DATABASE "vue-db";
+DROP DATABASE "vue-db" WITH (FORCE);
 --
 -- TOC entry 3461 (class 1262 OID 16384)
 -- Name: vue-db; Type: DATABASE; Schema: -; Owner: -
