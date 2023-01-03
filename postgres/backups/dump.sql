@@ -5,7 +5,7 @@
 -- Dumped from database version 15.1
 -- Dumped by pg_dump version 15.1
 
--- Started on 2023-01-03 13:22:20
+-- Started on 2023-01-03 13:35:38
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -18,6 +18,7 @@ SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
+DROP DATABASE "vue-db";
 --
 -- TOC entry 3461 (class 1262 OID 16384)
 -- Name: vue-db; Type: DATABASE; Schema: -; Owner: -
@@ -976,7 +977,7 @@ ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_fk1 FOREIGN KEY ("position") REFERENCES public.positions(pos_id) ON DELETE SET NULL;
 
 
--- Completed on 2023-01-03 13:22:20
+-- Completed on 2023-01-03 13:35:38
 
 --
 -- PostgreSQL database dump complete
