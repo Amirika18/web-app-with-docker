@@ -57,8 +57,5 @@ services:
       - ./postgres/data:/var/lib/postgresql/data
       - ./postgres/backups:/var/lib/postgresql/backups
       - ./postgres/backups/dump.sql:/docker-entrypoint-initdb.d/dump.sql
-#    healthcheck:
-#      test: bash -c "su - postgres && pg_restore -U postgres -d vue-db /var/lib/postgresql/backups/dump.tar && cp /var/lib/postgresql/backups/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf"
-#      interval: 15s
-#      retries: 1
-#      timeout: 10s
+    healthcheck:
+      test: bash -c "su - postgres && pg_restore -U postgres -d vue-db /var/lib/postgresql/backups/dump.tar && cp /var/lib/postgresql/backups/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf"
