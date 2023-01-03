@@ -53,10 +53,10 @@ services:
       - "5432:5432"
     working_dir: /db
     restart: always
-    command: bash -c "bash restore.sh"
     volumes:
       - ./postgres/data:/var/lib/postgresql/data
       - ./postgres/backups:/var/lib/postgresql/backups
 #      - ./postgres/backups/dump.sql:/dump.sql
+    command: bash -c "bash restore.sh"
 #    healthcheck:
 #      test: bash -c "su - postgres && pg_restore -U postgres -d vue-db /var/lib/postgresql/backups/dump.tar && cp /var/lib/postgresql/backups/pg_hba.conf /var/lib/postgresql/data/pg_hba.conf"
